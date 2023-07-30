@@ -1,0 +1,38 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+
+{# {{ validation_list_errors()|raw }} #}
+{# OR for each field #}
+
+{{form_open('news/update', [], {'news_id': news.id } )|raw }}
+<p class="form-control">
+    <label for="title">Title</label>
+    <input id="title" name="title" value="{{old('title') ? (old('title')|trim) : (news.title|trim)}}">
+
+    {% if validation_show_error('title') %}
+    <small style="color: brown; margin-block: 0.5rem;">
+        {{validation_show_error('title')|raw}}
+    </small>
+    {% endif %}
+</p>
+
+<p class="form-control">
+    <label for="body">Text</label>
+    <textarea id="body" name="body" cols="45" rows="4">{{
+        old('body') ? (old('body')|trim) : (news.body|trim) 
+    }}
+    </textarea>
+    {% if validation_show_error('body') %}
+    <small style="color: brown; margin-block: 0.5rem;">
+        {{validation_show_error('body')|raw}}
+    </small>
+    {% endif %}
+</p>
+
+<button>
+    Update
+</button>
+
+{{ form_close()|raw }}
+{% endblock %}

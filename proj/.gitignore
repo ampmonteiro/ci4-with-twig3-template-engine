@@ -64,6 +64,10 @@ writable/debugbar/*
 
 php_errors.log
 
+# twig caches
+
+writable/twig/cache/*
+
 #-------------------------
 # User Guide Temp Files
 #-------------------------

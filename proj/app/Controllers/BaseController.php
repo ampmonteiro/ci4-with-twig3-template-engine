@@ -8,6 +8,8 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use CodeIgniter\Exceptions\PageNotFoundException;
+use Twig\TwigFunction;
 
 /**
  * Class BaseController
@@ -43,6 +45,13 @@ abstract class BaseController extends Controller
      */
     // protected $session;
 
+
+    private $templateViewDir = APPPATH . 'Views/';
+    private $templateCacheDir = WRITEPATH . 'twig/cache/';
+    // instance of twig
+    private $templateTwig = null;
+
+
     /**
      * Constructor.
      */
@@ -54,5 +63,36 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        $this->initTwig();
+    }
+
+    public function twigDisplay(string $view, $data = [])
+    {
+        return $this->templateTwig->display("{$view}.twig", $data);
+    }
+
+    private function initTwig()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader($this->templateViewDir);
+
+        $this->templateTwig = new \Twig\Environment($loader, [
+            'cache' => $this->templateCacheDir,
+            'debug' => ENVIRONMENT === 'development'
+        ]);
+
+        $this->templateTwig->addExtension(new \Twig\Extension\DebugExtension());
+
+        # add CI functions to be recognized and call in Twig files
+        $fn_ci_list = [
+            'form_open',
+            'form_close',
+            'old',
+            'validation_list_errors',
+            'validation_show_error'
+        ];
+
+        foreach ($fn_ci_list as $fn_name) {
+            $this->templateTwig->addFunction(new TwigFunction($fn_name, $fn_name));
+        }
     }
 }

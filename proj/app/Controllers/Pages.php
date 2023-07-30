@@ -8,18 +8,31 @@ class Pages extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        // return view('welcome_message');
+        return $this->twigDisplay(
+            view: 'welcome_message',
+            data: ['title' => 'Welcome to CI 4 + Twig 3']
+        );
     }
 
     public function show($page = 'home')
     {
-        if (!is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
+        // if (!is_file(APPPATH . 'Views/pages/' . $page . '.php')) {
+        //     // Whoops, we don't have a page for that!
+        //     throw new PageNotFoundException($page);
+        // }
+
+        if (!is_file(APPPATH . 'Views/pages/' . $page . '.twig')) {
             // Whoops, we don't have a page for that!
             throw new PageNotFoundException($page);
         }
 
         $data['title'] = ucfirst($page); // Capitalize the first letter
 
-        return  view('pages/' . $page, $data);
+        // return  view('pages/' . $page, $data);
+        return $this->twigDisplay(
+            view: "pages/{$page}",
+            data: $data
+        );
     }
 }

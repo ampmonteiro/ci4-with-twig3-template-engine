@@ -16,7 +16,11 @@ class News extends BaseController
             'title' => 'News archive',
         ];
 
-        return view('news/index', $data);
+        // return view('news/index', $data);
+        return $this->twigDisplay(
+            view: 'news/index',
+            data: $data
+        );
     }
 
     public function show($slug = null)
@@ -33,13 +37,21 @@ class News extends BaseController
 
         helper('form');
 
-        return view('news/show', $data);
+        // return view('news/show', $data);
+        return $this->twigDisplay(
+            view: 'news/show',
+            data: $data
+        );
     }
 
     public function create()
     {
         helper('form');
-        return view('news/create', ['title' => 'Create a news item']);
+        // return view('news/create', ['title' => 'Create a news item']);
+        return $this->twigDisplay(
+            view: 'news/create',
+            data: ['title' => 'Create a news item']
+        );
     }
 
     public function store()
@@ -89,7 +101,12 @@ class News extends BaseController
 
         helper('form');
 
-        return view('news/edit', $data);
+        // return view('news/edit', $data);
+
+        return $this->twigDisplay(
+            view: 'news/edit',
+            data: $data
+        );
     }
 
     public function update()

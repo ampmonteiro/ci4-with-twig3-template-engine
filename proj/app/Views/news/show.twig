@@ -1,0 +1,20 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+
+<p> {{ news['body'] }}</p>
+
+<section style="margin-top:2rem;display: flex; gap: 10rem;">
+    <a href="/news/{{ news.slug }}/edit">
+        Edit article
+    </a>
+
+    {# Note: twig convert object js like => array assoc behind the scenes #}
+
+    {{ form_open('news/delete', [] ,{'news_id' : news.id } )|raw }}
+
+    <button>Delete</button>
+    {{ form_close()|raw }}
+</section>
+
+{% endblock %}
