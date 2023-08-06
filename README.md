@@ -1,32 +1,30 @@
-# CodeIgniter 4 - Build Your First Application
+# CodeIgniter 4  with Twig 3 template engine
 
 ## About the project?
 
-Base on Docs of CI4:
+Base on my improved version of `ci4 - Build Your First Application`:
 
-[Build Your First Application](https://codeigniter.com/user_guide/tutorial/).
-
-With new feature added for better understanding the framework
+[Original improved](https://github.com/ampmonteiro/ci4-build-your-first-App).
 
 What was added:
 
-- taking advantages of layout system
-- Edit news item
-- remove news item
-- used of form_open helper
-- better routes organization
-- better visual
+- Alternative template Engine
 
 ## What was used
 
 - php: 8.1
 - mysql: 8
 - Docker
-- CodeIgniter: 4.3.1
+- CodeIgniter: 4.3.6
+- Twig: 3.6.1 -> [more about](https://twig.symfony.com/)
+
+## side by side template code (Twig vs Vanilla Ci4 template engine)
+
+![Twig template engine VS Ci4 Template engine](twig_vs_ci4_template.png 'Twig template engine VS Ci4 Template engine')
 
 ## image of the App
 
-![CI4 News-Improved](app_screen.png 'News APp')
+![CI4 News-Improved](app_screen.png 'News CI4 + Twig')
 
 ## Editor and Recommend extensions
 
@@ -42,6 +40,8 @@ What was added:
   - [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) (By Microsoft): to manage docker containers in vs code
   - [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (By Microsoft): to use vscode inside of the container.
 
+  - [TWIG pack](https://marketplace.visualstudio.com/items?itemName=bajdzis.vscode-twig-pack) (By Bajdzis)
+
 ## Setup (using docker without compose)
 
 php image: read the Dockerfile
@@ -55,5 +55,5 @@ docker run --name db_ci \
      -e MYSQL_DATABASE=ci4 \
      -e MYSQL_USER=dev \
      -e MYSQL_PASSWORD=secret \
-     -dp 3307:3306 mysql;
+     -dp 3306:3306 mysql;
 ```
